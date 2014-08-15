@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity" >
+
+    <item
+        android:id="@+id/goBack"
+        android:icon="@drawable/back"
+        android:showAsAction="ifRoom"
+        android:title="@string/goBack"/>
+    <itemp
+        android:id="@+id/goForward"
+        android:icon="@drawable/forward"
+        android:showAsAction="ifRoom"
+        android:title="@string/goForward"/>
+    <item
+        android:id="@+id/reload"
+        android:icon="@drawable/reload"
+        android:showAsAction="ifRoom"
+        android:title="@string/pageReload" />
+</menu>
