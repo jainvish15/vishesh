@@ -73,9 +73,11 @@ public class MainActivity extends Activity implements Ari.StartCallback,
         super.onResume();
 
         mAri.start(this);
+        if(urlEditText.getText() != null) {
+            mWebview.loadUrl(urlEditText.getText().toString());
+        }
 
-
-    }
+}
 
 
     @Override
@@ -116,20 +118,10 @@ public class MainActivity extends Activity implements Ari.StartCallback,
     }
 
 
-    private class MyBrowser extends WebViewClient {
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
-            view.loadUrl(url);
-            urlEditText.setText(mWebview.getUrl());
-            return true;
-
-
-        }
-
-
-    }
-
+    /*
+    A closed hand would scroll up to the page until it hits the top of the page.
+     */
     @Override
     public void onClosedHandEvent(ClosedHandEvent event) {
 
@@ -137,7 +129,9 @@ public class MainActivity extends Activity implements Ari.StartCallback,
 
 
     }
-
+    /*
+    An Up Swipe takes back to the previous url.
+     */
     public void onUpSwipeEvent(UpSwipeEvent event) {
         if (mWebview.canGoBack()) {
             mWebview.goBack();
@@ -146,58 +140,47 @@ public class MainActivity extends Activity implements Ari.StartCallback,
                     Toast.LENGTH_LONG).show();
             Log.i(TAG, "Got hand swipe: " + event);
         }
-        //mWebview.scrollBy(-100,-100);
+
         Log.i(TAG,"Up Swipe");
     }
-
+    /*
+    A down swipe takes the linked forward url.
+     */
     public void onDownSwipeEvent(DownSwipeEvent event) {
 
-       /* if (mWebview.canGoForward()) {
+       if (mWebview.canGoForward() && mWebview != null) {
             mWebview.goForward();
             urlEditText.setText(mWebview.getOriginalUrl());
             Toast.makeText(getApplicationContext(), "Got down hand",
                     Toast.LENGTH_LONG).show();
             Log.i(TAG, "Got right hand");
-        }*/
-       // mWebview.scrollBy(140,150);
+        }
+
 
     }
-
+    /*
+    To Scroll down on the webpage. The scroll stops as soon as the scrollbar is at the end of the Page.
+     */
     @Override
     public void onOpenHandEvent(OpenHandEvent event) {
-        /*String url = urlEditText.getText().toString();
-        mWebview.getSettings().setLoadsImagesAutomatically(true);
-        mWebview.getSettings().setJavaScriptEnabled(true);
-        mWebview.setHorizontalScrollBarEnabled(true);
-        mWebview.getSettings().setBuiltInZoomControls(true);
-        mWebview.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
-        mWebview.loadUrl(url);
-        Log.i(TAG, "opening");*/
+
         mWebview.scrollBy(140,150);
 
 
     }
-
+    /*
+    A left swipe will reload the url.
+     */
     @Override
     public void onLeftSwipeEvent(LeftSwipeEvent event) {
-        if (mWebview.canGoForward()) {
-            mWebview.goForward();
-            urlEditText.setText(mWebview.getOriginalUrl());
-            Toast.makeText(getApplicationContext(), "Got left  hand",
-                    Toast.LENGTH_LONG).show();
-            Log.i(TAG, "Got right hand");}
-       // mWebview.reload();
-        /*if (mWebview.canGoBack()) {
-            mWebview.goBack();
-            urlEditText.setText(mWebview.getOriginalUrl());
-            Toast.makeText(getApplicationContext(), "Got leftswipe hand",
-                    Toast.LENGTH_LONG).show();
-            Log.i(TAG, "Got hand swipe: " + event);
-        }*/
-
+        if(mWebview != null) {
+            mWebview.reload();
+        }
     }
 
-
+    /*
+    A Single Right Swipe loads the url typed in the textEdit Box
+     */
     @Override
     public void onRightSwipeEvent(RightSwipeEvent event) {
         String url = urlEditText.getText().toString();
@@ -208,19 +191,25 @@ public class MainActivity extends Activity implements Ari.StartCallback,
         mWebview.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
         mWebview.loadUrl(url);
         Log.i(TAG, "opening");
-    /* String url=urlEditText.getText().toString();
-     mWebview.getSettings().setLoadsImagesAutomatically(true);
-     mWebview.getSettings().setJavaScriptEnabled(true);
-     mWebview.setHorizontalScrollBarEnabled(true);
-     mWebview.getSettings().setBuiltInZoomControls(true);
-     mWebview.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
-     mWebview.loadUrl(url);
-     Log.i(TAG, "opening");
-        if (mWebview.canGoForward()) {
-            mWebview.goForward();
-            urlEditText.setText(mWebview.getOriginalUrl());
-            Log.i(TAG, "Got right hand");
-        }*/
+
+
+
+    }
+
+    /*
+    A new WebViewClient Class to override the url loading.
+
+     */
+    private class MyBrowser extends WebViewClient {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
+            view.loadUrl(url);
+            urlEditText.setText(mWebview.getUrl());
+            return true;
+
+
+        }
 
 
     }
