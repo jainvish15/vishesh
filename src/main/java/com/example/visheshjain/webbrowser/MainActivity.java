@@ -45,6 +45,12 @@ public class MainActivity extends Activity implements Ari.StartCallback,
         setContentView(R.layout.activity_main);
         mWebview = (WebView) findViewById(R.id.mwebView);
         urlEditText = (EditText) findViewById(R.id.editText);
+        String url = urlEditText.getText().toString();
+        mWebview.getSettings().setLoadsImagesAutomatically(true);
+        mWebview.getSettings().setJavaScriptEnabled(true);
+        mWebview.setHorizontalScrollBarEnabled(true);
+        mWebview.getSettings().setBuiltInZoomControls(true);
+        mWebview.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
         mWebview.setWebViewClient(new MyBrowser());
         urlEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -183,14 +189,10 @@ public class MainActivity extends Activity implements Ari.StartCallback,
      */
     @Override
     public void onRightSwipeEvent(RightSwipeEvent event) {
-        String url = urlEditText.getText().toString();
-        mWebview.getSettings().setLoadsImagesAutomatically(true);
-        mWebview.getSettings().setJavaScriptEnabled(true);
-        mWebview.setHorizontalScrollBarEnabled(true);
-        mWebview.getSettings().setBuiltInZoomControls(true);
-        mWebview.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
+        if(mWebview!=null) {
         mWebview.loadUrl(url);
         Log.i(TAG, "opening");
+        }
 
 
 
