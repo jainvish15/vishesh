@@ -23,35 +23,37 @@ import io.onthego.ari.event.OpenHandEvent;
 import io.onthego.ari.event.RightSwipeEvent;
 import io.onthego.ari.event.UpSwipeEvent;
 
-
+// Manage your White Space Properly and Indentation 
 public class MainActivity extends Activity implements Ari.StartCallback,
         Ari.ErrorCallback,
         ClosedHandEvent.Listener,
-        LeftSwipeEvent.Listener,
+        LeftSwipeEvent.Listener,   // Arrange them in an orger 
         OpenHandEvent.Listener,
         RightSwipeEvent.Listener,UpSwipeEvent.Listener,DownSwipeEvent.Listener {
 
     private ActiveAri mAri;
-    WebView mWebview;
-    EditText urlEditText;
+    WebView mWebview; // Should be Private
+    EditText urlEditText; // Should be Private
 
 
-    final static String TAG = "Message";
+    final static String TAG = "MainActivity"; // Its usually the name of the class!!!
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {  // focus on spacing on every functionality 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mWebview = (WebView) findViewById(R.id.mwebView);
         urlEditText = (EditText) findViewById(R.id.editText);
         String url = urlEditText.getText().toString();
+        
         mWebview.getSettings().setLoadsImagesAutomatically(true);
         mWebview.getSettings().setJavaScriptEnabled(true);
         mWebview.setHorizontalScrollBarEnabled(true);
         mWebview.getSettings().setBuiltInZoomControls(true);
         mWebview.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
         mWebview.setWebViewClient(new MyBrowser());
+        
         urlEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -63,7 +65,7 @@ public class MainActivity extends Activity implements Ari.StartCallback,
 
         try {
 
-            mAri = ActiveAri.getInstance(
+            mAri = ActiveAri.getInstance(   // Format this part 
                     getString(R.string.ari_api_key),
                     getApplicationContext())
                     .addErrorCallback(this)
@@ -189,7 +191,7 @@ public class MainActivity extends Activity implements Ari.StartCallback,
      */
     @Override
     public void onRightSwipeEvent(RightSwipeEvent event) {
-        if(mWebview!=null) {
+        if(mWebview!=null) { // Manage Indentation 
         mWebview.loadUrl(url);
         Log.i(TAG, "opening");
         }
@@ -202,7 +204,7 @@ public class MainActivity extends Activity implements Ari.StartCallback,
     A new WebViewClient Class to override the url loading.
 
      */
-    private class MyBrowser extends WebViewClient {
+    private class MyBrowser extends WebViewClient {  // MyBrowser is not a good name & Make this class static 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
