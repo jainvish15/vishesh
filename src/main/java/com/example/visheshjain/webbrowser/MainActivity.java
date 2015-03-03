@@ -139,6 +139,7 @@ public class MainActivity extends Activity implements Ari.StartCallback,
                         }
                         Log.i(TAG,"Up Swipe");
                  }
+                 
                 /*
                 A down swipe takes the linked forward url.
                 */
@@ -155,13 +156,12 @@ public class MainActivity extends Activity implements Ari.StartCallback,
                 /*
                  To Scroll down on the webpage. The scroll stops as soon as the scrollbar is at the end of the Page.
                  */
+                 
                 @Override
                  public void onOpenHandEvent(OpenHandEvent event) {
-
-        mWebview.scrollBy(140,150);
-
-
-    }
+                                                       
+                              mWebview.scrollBy(140,150);
+               }
     /*
     A left swipe will reload the url.
      */
@@ -190,7 +190,7 @@ public class MainActivity extends Activity implements Ari.StartCallback,
     A new WebViewClient Class to override the url loading.
 
      */
-    private class MyBrowser extends WebViewClient {  // MyBrowser is not a good name & Make this class static 
+    private static class MyBrowser extends WebViewClient {   
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
@@ -200,8 +200,5 @@ public class MainActivity extends Activity implements Ari.StartCallback,
 
 
         }
-
-
     }
-
 }
